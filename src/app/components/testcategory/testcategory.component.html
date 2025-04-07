@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="font-semibold text-xl mb-4">Test Categories</div>
+    <p-table [value]="testCategories" dataKey="name" [expandedRowKeys]="expandedRows" responsiveLayout="scroll">
+        <ng-template #caption>
+            <button pButton icon="pi pi-fw {{ isExpanded ? 'pi-minus' : 'pi-plus' }}" label="{{ isExpanded ? 'Collapse All' : 'Expand All' }}" (click)="expandAll()"></button>
+        </ng-template>
+
+        <ng-template #header>
+            <tr>
+                <th style="width: 3rem"></th>
+                <th>Name</th>
+                <th>Updates</th>
+                <th>Status</th>
+            </tr>
+        </ng-template>
+
+        <ng-template #body let-category let-expanded="expanded">
+            <tr>
+                <td>
+                    <button type="button" pButton pRipple [pRowToggler]="category" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                </td>
+                <td>{{ category.name }}</td>
+                <td>{{ category.updates }}</td>
+                <td>
+                    <p-tag [value]="category.status" [severity]="getSeverity(category.status)"></p-tag>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template #rowexpansion let-category>
+            <tr>
+                <td colspan="4">
+                    <div class="p-3">
+                        <p-table [value]="category.tests" responsiveLayout="scroll">
+                            <ng-template #header>
+                                <tr>
+                                    <th>Test Name</th>
+                                    <th>Last Updated</th>
+                                    <th>Status</th>
+                                    <th style="width: 4rem"></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template #body let-test>
+                                <tr>
+                                    <td>{{ test.name }}</td>
+                                    <td>{{ test.updated }}</td>
+                                    <td>
+                                        <span [class]="'order-badge order-' + test.status.toLowerCase()">{{ test.status }}</span>
+                                    </td>
+                                    <td>
+                                        <p-button type="button" icon="pi pi-search"></p-button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template #emptymessage>
+                                <tr>
+                                    <td colspan="4">No tests found in this category.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

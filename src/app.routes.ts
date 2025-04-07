@@ -5,6 +5,7 @@ import { Documentation } from './app/pages/documentation/documentation';
 import { Landing } from './app/pages/landing/landing';
 import { Notfound } from './app/pages/notfound/notfound';
 import { TablecomponentComponent } from './app/tablecomponent/tablecomponent.component';
+import { TestcategoryComponent } from './app/components/testcategory/testcategory.component';
 
 export const appRoutes: Routes = [
     {
@@ -13,6 +14,7 @@ export const appRoutes: Routes = [
         children: [
             { path: '', component: Dashboard },
             { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
+            { path:'testcategory',component:TestcategoryComponent},
             { path: 'documentation', component: Documentation },
             { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') },
             {path:'aa',component:TablecomponentComponent}
